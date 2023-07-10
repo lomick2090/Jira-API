@@ -1,0 +1,79 @@
+  /**
+   * This snippet has been automatically generated and should be regarded as a code template only.
+   * It will require modifications to work.
+   * It may require correct/in-range values for request initialization.
+   * TODO(developer): Uncomment these variables before running the sample.
+   */
+  /**
+   *  Required. The write_stream identifies the target of the append operation,
+   *  and only needs to be specified as part of the first request on the gRPC
+   *  connection. If provided for subsequent requests, it must match the value of
+   *  the first request.
+   *  For explicitly created write streams, the format is:
+   *  * `projects/{project}/datasets/{dataset}/tables/{table}/streams/{id}`
+   *  For the special default stream, the format is:
+   *  * `projects/{project}/datasets/{dataset}/tables/{table}/streams/_default`.
+   */
+  // const writeStream = 'abc123'
+  /**
+   *  If present, the write is only performed if the next append offset is same
+   *  as the provided value. If not present, the write is performed at the
+   *  current end of stream. Specifying a value for this field is not allowed
+   *  when calling AppendRows for the '_default' stream.
+   */
+  // const offset = {}
+  /**
+   *  Rows in proto format.
+   */
+  // const protoRows = {}
+  /**
+   *  Id set by client to annotate its identity. Only initial request setting is
+   *  respected.
+   */
+  // const traceId = 'abc123'
+  /**
+   *  A map to indicate how to interpret missing value for some fields. Missing
+   *  values are fields present in user schema but missing in rows. The key is
+   *  the field name. The value is the interpretation of missing values for the
+   *  field.
+   *  For example, a map {'foo': NULL_VALUE, 'bar': DEFAULT_VALUE} means all
+   *  missing values in field foo are interpreted as NULL, all missing values in
+   *  field bar are interpreted as the default value of field bar in table
+   *  schema.
+   *  If a field is not in this map and has missing values, the missing values
+   *  in this field are interpreted as NULL.
+   *  This field only applies to the current request, it won't affect other
+   *  requests on the connection.
+   *  Currently, field name can only be top-level column name, can't be a struct
+   *  field path like 'foo.bar'.
+   */
+  // const missingValueInterpretations = 1234
+
+  // Imports the Storage library
+ 
+  // Instantiates a client
+
+
+export async function callAppendRows() {
+    const {BigQuery} = require('@google-cloud/bigquery');
+    const bigquery = new BigQuery();
+    const dataset = bigquery.dataset('institutions');
+
+    const tableId = 'institution_data';
+
+    const options = {
+        schema: 'PROJECT,ID,SUMMARY,DESCRIPTION,ASSIGNEE_NAME,ASSIGNEE_ID,REPORTER_NAME,REPORTER_ID,PRIORITY,CREATED,DUE,TIMESPENT'
+    };
+
+    dataset.createTable(tableId, options, (err, table, apiResponse) => {});
+
+    //-
+    // If the callback is omitted, we'll return a Promise.
+    //-
+    dataset.createTable(tableId, options).then((data) => {
+        const table = data[0];
+        const apiResponse = data[1];
+    });
+}
+
+callAppendRows();
