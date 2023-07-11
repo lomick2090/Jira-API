@@ -5,6 +5,7 @@ const password: string | undefined  = process.env.ATLASSIAN_API_KEY
 const domain: string | undefined  = process.env.DOMAIN
 
 interface IssueReturn {
+    project: string,
     id: string,
     summary: string,
     description: string | null,
@@ -18,7 +19,7 @@ interface IssueReturn {
     } | null,
     priority: "Highest" | "High" | "Medium" | "Low" | "Lowest",
     created: string,
-    duedate: string,
+    duedate: string | null,
     timespent: number | null
 }
 
@@ -59,9 +60,10 @@ export default async function getIssuesByProject(projectKey:string) {
     .then(text => { 
         return JSON.parse(text);
     })
-    .then(data => data.issues.forEach((issue : any, index: number)=> {
+    .then((data : any) => data.issues.forEach((issue : any, index: number)=> {
         let field = issue.fields
         result.push({
+            project: projectKey,
             id: issue.key,
             summary: field.summary,
             description: (field?.description) ? field?.description.content[0].content[0].text : null,
