@@ -4,13 +4,13 @@ export default async function tableExists(tableId: string, datasetId: string) {
     const {BigQuery} = require('@google-cloud/bigquery');
     const bigquery = new BigQuery();
 
-  const dataset = bigquery.dataset(datasetId);
+    const dataset = bigquery.dataset(datasetId);
 
-  try {
+    try {
     await dataset.table(tableId).get();
     return true
-  } catch (error) {
-    console.log(error.message);
+    } catch (error) {
+    console.log(error);
     return false
-  }
+    }
 }
