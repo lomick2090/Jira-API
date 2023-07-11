@@ -1,6 +1,6 @@
 
 //deletes table 
-export default async function deleteTable(tableId: string, datasetId: string) {
+export default async function deleteTable(datasetId: string, tableId: string) {
     const {BigQuery} = require('@google-cloud/bigquery');
     const bigquery = new BigQuery();
 

@@ -1,9 +1,3 @@
-require('dotenv').config();
-
-const username: string | undefined = process.env.ATLASSIAN_USERNAME
-const password: string | undefined  = process.env.ATLASSIAN_API_KEY
-const domain: string | undefined  = process.env.DOMAIN
-
 interface IssueReturn {
     project: string,
     id: string,
@@ -24,6 +18,12 @@ interface IssueReturn {
 }
 
 export default async function getIssuesByProject(projectKey:string) {
+    require('dotenv').config();
+
+    const username: string | undefined = process.env.ATLASSIAN_USERNAME
+    const password: string | undefined  = process.env.ATLASSIAN_API_KEY
+    const domain: string | undefined  = process.env.DOMAIN
+
     let result: IssueReturn[] = [];
 
     const bodyData = `{
@@ -60,7 +60,7 @@ export default async function getIssuesByProject(projectKey:string) {
     .then(text => { 
         return JSON.parse(text);
     })
-    .then((data : any) => data.issues.forEach((issue : any, index: number)=> {
+    .then((data : any) => data.issues.forEach((issue : any)=> {
         let field = issue.fields
         result.push({
             project: projectKey,

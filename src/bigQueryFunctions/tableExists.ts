@@ -1,6 +1,6 @@
 //returns  a promise with true if table exists, or false if not
 
-export default async function tableExists(tableId: string, datasetId: string) {
+export default async function tableExists(datasetId: string, tableId: string) {
     const {BigQuery} = require('@google-cloud/bigquery');
     const bigquery = new BigQuery();
 

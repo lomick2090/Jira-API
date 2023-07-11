@@ -1,5 +1,6 @@
 
-export default async function insertRowsAsStream(tableId: string, datasetId: string, rows: any ) {
+//insterts rows into a given table 
+export default async function insertRowsAsStream(datasetId: string, tableId: string,  rows: any ) {
     const {BigQuery} = require('@google-cloud/bigquery');
     const bigquery = new BigQuery();
 

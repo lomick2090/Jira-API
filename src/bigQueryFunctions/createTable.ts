@@ -1,8 +1,8 @@
 
 //creates new table with Issue schema
 export default async function createTable(  
-    tableId: string, // Table to be created
     datasetId = 'Issues', // Existing dataset
+    tableId: string, // Table to be created
     schema = [
         {name: 'project', type: 'STRING', mode: 'REQUIRED'},
         {name: 'id', type: 'STRING', mode: 'REQUIRED'},
