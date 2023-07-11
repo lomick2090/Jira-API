@@ -1,4 +1,4 @@
-interface IssueReturn {
+export interface IssueReturn {
     project: string,
     id: string,
     summary: string,
