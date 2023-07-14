@@ -1,8 +1,8 @@
 import getIssuesByProject from './ApiFunctions/GetIssuesByProject'
-import createIssueTable from './bigQueryFunctions/CreateIssueTable'
-import deleteTable from './bigQueryFunctions/DeleteTable'
-import tableExists from './bigQueryFunctions/TableExists'
-import insertRows from './bigQueryFunctions/InsertRows'
+import createIssueTable from './BigQueryFunctions/CreateIssueTable'
+import deleteTable from './BigQueryFunctions/DeleteTable'
+import tableExists from './BigQueryFunctions/TableExists'
+import insertRows from './BigQueryFunctions/InsertRows'
 
 export default async function pullIssuesAndCreateDatabase(datasetId: string, projectId: string) {
     const issues = await getIssuesByProject(projectId);
