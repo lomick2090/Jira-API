@@ -18,12 +18,14 @@ export interface Issue {
 };
 
 //Pulls Issue data of a given project and returns a promise with the data in a useable format
-export default async function getIssuesByProject(projectKey: string, result: Issue[] = [], startAt: number = 0) : Promise<Issue[]> {
+export default async function getIssuesByProject(projectKey: string) : Promise<Issue[]> {
     require('dotenv').config();
     const username: string | undefined = process.env.ATLASSIAN_USERNAME;
     const password: string | undefined  = process.env.ATLASSIAN_API_KEY;
     const domain: string | undefined  = process.env.DOMAIN;
-    let doneBool: boolean = false
+    let doneBool: boolean = false;
+    let result: Issue[] = [];
+    let startAt: number = 0;
 
     while (!doneBool) {
         const bodyData = `{
@@ -51,16 +53,16 @@ export default async function getIssuesByProject(projectKey: string, result: Iss
                     'Content-Type': 'application/json'
                 },
                 body: bodyData
-            })
+            });
         
-            console.log(`Response: ${response.status} ${response.statusText}`)
-            let data = JSON.parse(await response.text())
+            console.log(`Response: ${response.status} ${response.statusText}`);
+            let data = JSON.parse(await response.text());
             
             //Checks for full data pull
-            startAt = startAt+50
-            doneBool = startAt >= data.total
+            startAt = startAt+50;
+            doneBool = startAt >= data.total;
 
-            data.issues.forEach((issue : any) => {
+            data.issues.forEach((issue: any) => {
                 let field = issue.fields;
                 result.push({
                     project: projectKey,
@@ -80,12 +82,12 @@ export default async function getIssuesByProject(projectKey: string, result: Iss
                     duedate: (field?.duedate) ? field.duedate : undefined ,
                     timespent: (field?.timespent) ? field?.timespent : undefined
                 });
-            })
+            });
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     } 
 
-    return result 
+    return result;
 }
