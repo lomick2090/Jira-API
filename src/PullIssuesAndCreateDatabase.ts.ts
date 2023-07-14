@@ -1,4 +1,4 @@
-import getIssuesByProject from './apiFunctions/GetIssuesByProject'
+import getIssuesByProject from './ApiFunctions/GetIssuesByProject'
 import createIssueTable from './bigQueryFunctions/CreateIssueTable'
 import deleteTable from './bigQueryFunctions/DeleteTable'
 import tableExists from './bigQueryFunctions/TableExists'
