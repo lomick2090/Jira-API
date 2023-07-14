@@ -1,5 +1,4 @@
-
-//creates new table with Issue schema
+//Creates new table with Issue schema
 export default async function createTable(  
     datasetId = 'Issues', // Existing dataset
     tableId: string, // Table to be created
@@ -8,36 +7,24 @@ export default async function createTable(
         {name: 'id', type: 'STRING', mode: 'REQUIRED'},
         {name: 'summary', type: 'STRING', mode: 'REQUIRED'},
         {name: 'description', type: 'STRING', mode: 'NULLABLE'},
-        {name: 'assignee', type: 'RECORD', mode:'NULLABLE', fields:[
-            {
-                name: 'displayName',
-                type: 'STRING',
-                mode: 'REQUIRED'
-            },
-            {
-                name: 'accountId',
-                type: 'STRING',
-                mode: 'REQUIRED'
-            }
-        ]},
-        {name: 'reporter', type: 'RECORD', mode:'NULLABLE', fields:[
-            {
-                name: 'displayName',
-                type: 'STRING',
-                mode: 'REQUIRED'
-            },
-            {
-                name: 'accountId',
-                type: 'STRING',
-                mode: 'REQUIRED'
-            }
-        ]},
+        {name: 'assignee', type: 'RECORD', mode:'NULLABLE', 
+            fields:[
+                {name: 'displayName', type: 'STRING', mode: 'REQUIRED'},
+                {name: 'accountId',type: 'STRING',mode: 'REQUIRED'}
+            ]
+        },
+        {name: 'reporter', type: 'RECORD', mode:'NULLABLE', 
+            fields:[
+                {name: 'displayName',type: 'STRING',mode: 'REQUIRED'},
+                {name: 'accountId',type: 'STRING',mode: 'REQUIRED'}
+            ]
+        },
         {name: 'priority', type: 'STRING', mode: 'NULLABLE'},
         {name: 'created', type: 'STRING', mode: 'REQUIRED'},
         {name: 'duedate', type: 'STRING', mode: 'NULLABLE'},
         {name: 'timespent', type: 'INT64', mode: 'NULLABLE'},
     ]
-) {
+) : Promise<void> {
     const {BigQuery} = require('@google-cloud/bigquery');
     const bigquery = new BigQuery();
 
@@ -50,6 +37,5 @@ export default async function createTable(
     const [table] = await bigquery
         .dataset(datasetId)
         .createTable(tableId, options);
-
     console.log(`Table ${table.id} created.`);
 }
