@@ -8,7 +8,6 @@ export default async function tableExists(datasetId: string, tableId: string) : 
         await dataset.table(tableId).get();
         return true;
     } catch (error) {
-        console.log(error);
         return false;
     }
 }
