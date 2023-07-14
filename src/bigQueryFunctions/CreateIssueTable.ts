@@ -1,5 +1,5 @@
 //Creates new table with Issue schema
-export default async function createTable(  
+export default async function createIssueTable(  
     datasetId: string, // Existing dataset
     tableId: string, // Table to be created
     schema = [

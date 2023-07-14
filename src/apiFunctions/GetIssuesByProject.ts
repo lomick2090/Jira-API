@@ -23,9 +23,9 @@ export default async function getIssuesByProject(projectKey: string) : Promise<I
     const username: string | undefined = process.env.ATLASSIAN_USERNAME;
     const password: string | undefined  = process.env.ATLASSIAN_API_KEY;
     const domain: string | undefined  = process.env.DOMAIN;
-    let doneBool: boolean = false;
+    let doneBool = false;
     let result: Issue[] = [];
-    let startAt: number = 0;
+    let startAt = 0;
 
     while (!doneBool) {
         const bodyData = `{
