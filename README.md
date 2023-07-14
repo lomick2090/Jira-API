@@ -12,9 +12,9 @@ This project pulls all issue data for a given project from the Jira API and form
 
 Your. env file should be in this format: 
 
-ATLASSIAN_USERNAME = (Your Username) 
-ATLASSIAN_API_KEY = (Your Api Key)  
-DOMAIN =  (Your Domain)
+ATLASSIAN_USERNAME = (Your Username)  
+ATLASSIAN_API_KEY = (Your Api Key)   
+DOMAIN =  (Your Domain)  
 
 4. Install gcloud CLI  (instructions here: https://cloud.google.com/sdk/docs/install)
 5. Set up gcloud with proper authorization for your BigQuery project (instructions here: https://cloud.google.com/sdk/docs/authorizing)
