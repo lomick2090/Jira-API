@@ -1,4 +1,4 @@
-#Query Jira API for Issues and Upload to BigQuery
+# Query Jira API for Issues and Upload to BigQuery
 
 This project pulls all issue data for a given project from the Jira API and formats it into a usable object, then checks BigQuery for a matching table, if the table exists it deletes it and then creates a new table with the newly pulled data.
 
@@ -11,14 +11,12 @@ How To:
 
 Your. env file should be in this format: 
 
-ATLASSIAN_USERNAME=\<Your Username\>
-ATLASSIAN_API_KEY=\<Your Api Key>
-DOMAIN=\<Your Domain\> 
+ATLASSIAN_USERNAME=\<Your Username\> 
+ATLASSIAN_API_KEY=\<Your Api Key> 
+DOMAIN= \<Your Domain\> 
 
-4. Install gcloud CLI 
-(instructions here: https://cloud.google.com/sdk/docs/install)
-5. Set up gcloud with proper authorization for your BigQuery project 
-(instructions here: https://cloud.google.com/sdk/docs/authorizing)
+4. Install gcloud CLI \n (instructions here: https://cloud.google.com/sdk/docs/install)
+5. Set up gcloud with proper authorization for your BigQuery project \n(instructions here: https://cloud.google.com/sdk/docs/authorizing)
 6. Create a new BigQuery dataset that you want to house your issues in
 6. Run the typescript compiler ('tsc' in terminal)
 
