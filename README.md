@@ -22,8 +22,8 @@ DOMAIN =  (Your Domain)
 7. Run the typescript compiler ('tsc' in terminal)
 
 
-Once all this is done, the App.js file in the dist folder is ready to be run, you can run it with this terminal command:
+Once all this is done, the app.js file in the dist folder is ready to be run, you can run it with this terminal command:
 
-'node App.js (Your BigQuery Dataset) (Your Jira Project Name)'
+'node app.js (Your BigQuery Dataset) (Your Jira Project Name)'
 
 The BigQuery dataset is the one you made in step 6, and the Jira project is the ID of the project (i.e. 'Implemented Today' = 'IT') 

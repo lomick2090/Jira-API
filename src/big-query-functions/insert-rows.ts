@@ -1,7 +1,7 @@
-import { Issue } from "../ApiFunctions/GetIssuesByProject";
+import { Issue } from "../api-functions/get-issues-by-project";
+import { BigQuery } from "@google-cloud/bigquery";
 //inserts rows into a given table 
 export default async function insertRowsAsStream(datasetId: string, tableId: string,  rows: Issue[] ): Promise<void> {
-    const {BigQuery} = require('@google-cloud/bigquery');
     const bigquery = new BigQuery();
 
     await bigquery
