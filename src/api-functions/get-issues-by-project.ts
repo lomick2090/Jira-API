@@ -1,24 +1,5 @@
 import dotenv from "dotenv";
 
-export interface Issue {
-    project: string,
-    id: string,
-    summary: string,
-    description?: string,
-    assignee?: {
-      displayName: string,
-      accountId: string
-    },
-    reporter?: {
-      displayName: string,
-      accountId: string
-    },
-    priority: "Highest" | "High" | "Medium" | "Low" | "Lowest",
-    created: string,
-    duedate?: string,
-    timespent?: number
-};
-
 //Pulls Issue data of a given project and returns a promise with the data in a useable format
 export default async function getIssuesByProject(projectKey: string) : Promise<Issue[]> {
     dotenv.config();
@@ -30,6 +11,7 @@ export default async function getIssuesByProject(projectKey: string) : Promise<I
     let isCompleted = false;
     let result: Issue[] = [];
     let startAt = 0;
+    const resultsPerQuery = 100;
     
     async function fetchIssues() {
         const bodyData = `{
@@ -44,7 +26,8 @@ export default async function getIssuesByProject(projectKey: string) : Promise<I
                 "timespent"
             ],
             "jql": "project = ${projectKey}",
-            "startAt": "${startAt}"
+            "startAt": "${startAt}",
+            "maxResults":"${resultsPerQuery}"
         }`;
         
         const response = await fetch(`https://${domain}.atlassian.net/rest/api/3/search`, {
@@ -61,7 +44,7 @@ export default async function getIssuesByProject(projectKey: string) : Promise<I
         const data = JSON.parse(await response.text());
         
         //Checks for full data pull
-        startAt = startAt+50;
+        startAt = startAt + resultsPerQuery;
         isCompleted = startAt >= data.total;
 
         data.issues.forEach((issue: any) => {
@@ -95,7 +78,7 @@ export default async function getIssuesByProject(projectKey: string) : Promise<I
             console.log(error);
         }
     }
-    
+
     console.log(`${result.length} issues found`)
     return result;
 }

@@ -1,21 +1,20 @@
-import { Issue } from "../api-functions/get-issues-by-project";
 import { BigQuery } from "@google-cloud/bigquery";
 
-export default class BQ {
+export default class BigQueryService {
+    static bigquery = new BigQuery()
+
     //Creates a new table in the dataset
     static async createTable(  
         datasetId: string, // Existing dataset
         tableId: string, // Table to be created
         schema: any
     ) : Promise<void> {
-        const bigquery = new BigQuery();
-    
         const options = {
             schema: schema,
             location: 'US',
         };
     
-        const [table] = await bigquery
+        const [table] = await this.bigquery
             .dataset(datasetId)
             .createTable(tableId, options);
         console.log(`Table ${table.id} created`);
@@ -23,9 +22,7 @@ export default class BQ {
 
     //Deletes table in the dataset
     static async deleteTable(datasetId: string, tableId: string): Promise<void> {
-        const bigquery = new BigQuery();
-    
-        await bigquery
+        await this.bigquery
             .dataset(datasetId)
             .table(tableId)
             .delete();
@@ -33,10 +30,8 @@ export default class BQ {
     }
 
     //Inserts rows into a table
-    static async insertRows(datasetId: string, tableId: string,  rows: Issue[] ): Promise<void> {
-        const bigquery = new BigQuery();
-    
-        await bigquery
+    static async insertRows(datasetId: string, tableId: string,  rows: Issue[] ): Promise<void> {   
+        await this.bigquery
             .dataset(datasetId)
             .table(tableId)
             .insert(rows);
@@ -45,8 +40,7 @@ export default class BQ {
 
     //Returns a promise containing true if the table exists and false if not
     static async tableExists(datasetId: string, tableId: string) : Promise<boolean> {
-        const bigquery = new BigQuery();
-        const dataset = bigquery.dataset(datasetId);
+        const dataset = this.bigquery.dataset(datasetId);
     
         try {
             await dataset.table(tableId).get();
